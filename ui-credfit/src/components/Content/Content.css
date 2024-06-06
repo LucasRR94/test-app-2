@@ -1,0 +1,29 @@
+
+.content-card {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+/* Chrome, Edge, and Safari */
+.content-card::-webkit-scrollbar {
+    width: 12px !important;
+}
+
+.content-card::-webkit-scrollbar-track {
+    background: #fff !important;
+    border-radius: 1rem;
+}
+
+.content-card::-webkit-scrollbar-thumb {
+    background: #D6DBDB;
+    border-radius: 1rem;
+}
+
+.content-card::-webkit-scrollbar-thumb:hover {
+    background: #D6DBDB;
+    opacity: 0.6;
+}
+
+.MuiCardContent-root {
+    padding:0 !important;
+}

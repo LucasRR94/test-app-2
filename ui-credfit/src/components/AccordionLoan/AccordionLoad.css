@@ -1,0 +1,10 @@
+.MuiAccordionSummary-root{
+    background-color: #FAFAFA !important;
+    padding:24px;
+    border-radius: 16px;
+    height: 92px;   
+}
+
+.MuiSvgIcon-root{
+    font-size: 32px  !important;
+}

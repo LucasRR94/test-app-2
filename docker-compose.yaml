@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  ui:
+    build: ./ui-credfit
+    container_name: ui-credfit
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./ui-credfit/src/:/app/src/
+      - ./ui-credfit/tailwind.config.js:/app/tailwind.config.js
+  api-credfit:
+    build: ./api-credfit
+    container_name: api-credfit
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+    volumes:
+      - ./api-credfit/src/:/app/src/
+    networks:
+      - connect-db
+    depends_on:
+      - credfit_base
+  credfit_base:
+    image: postgres:16.3-alpine3.20
+    container_name: credfit_base
+    command: "postgres -c 'max_connections=500'"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    networks:
+      - connect-db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+networks:
+  connect-db:
+    driver: bridge
+
+volumes:
+  db-data:

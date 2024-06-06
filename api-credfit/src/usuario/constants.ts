@@ -1,0 +1,1 @@
+export const MAX_MARGIN_PERCENTAGE: number = 0.35;
